@@ -23,11 +23,11 @@ function Login() {
                             <Typography color="textSecondary" variant='h3'>Ingrese los datos para acceder</Typography>
                             <Divider />
                             <CardContent>
-                                <Grid container spacing={6}>
-                                    <Grid>
-                                        <TextField fullWidth required label="Nombre" helperText="Nombre" />
+                                <Grid container spacing={3}>
+                                    <Grid sx={{ width: 360, }}>
+                                        <TextField fullWidth required label="Nombre" helperText="Nombre" />  
                                     </Grid>
-                                    <Grid >
+                                    <Grid sx={{ width: 415 }}>
                                         <TextField fullWidth required label="Contraseña" type="password" helperText="Contraseña" />
                                     </Grid>
                                 </Grid >
