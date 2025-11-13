@@ -1,65 +1,69 @@
-import { Button, Card, CardContent, Divider, Grid, TextField } from '@mui/material';
-import Container from '@mui/material/Container'
+import { Box, Button, Container, Grid, Paper, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+import LockIcon from '@mui/icons-material/Lock';
+import Alert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
+    const [data, setData] = useState({
+        usuario: '',
+        contrasena: '',
+    });
+
+    const [Alerta, setAlerta] = useState(false);
 
 
+    const Datos = (e: any) => {
+        const { name, value, type, checked } = e.target;
+        setData({
+            ...data,
+            [name]: type === "checkbox" ? checked : value,
+        });
+    };
+
+    const navigate = useNavigate()
+
+    const enviar = (e: any) => {
+        console.log(data);
+        e.preventDefault();
+
+        const usuarioadmin = "admin";
+        const usuariocontraseña = "1234";
+
+        if (data.usuario === usuarioadmin && data.contrasena === usuariocontraseña) {
+            setAlerta(false)
+            navigate('/Home')
+        } else {
+            setAlerta(true)
+        }
+    }
 
     return (
-        <>
-            <header>
-                <Container>
-                    <Grid container sx={{ width: 600 }}>
-                        <Typography variant='h1'>Página Login de Gabriel Santana Melian</Typography>
+        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <Box  >
+                <Paper>
+                    <Grid sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Typography variant="h1">Sistema de acceso</Typography>
+                        <LockIcon sx={{ fontSize: 40, mb: 2 }} />
                     </Grid>
-                    <Divider sx={{ mb: 4 }} />
-                </Container>
-            </header>
-            <main>
-                <Container sx={{ flexDirection: 'column', alignItems: "center", justifyContent: "center" }}>
-                    <Grid sx={{ mb: 2 }}>
-                        <Card sx={{ width: 600 }}>
-                            <Typography color="textSecondary" variant='h3'>Ingrese los datos para acceder</Typography>
-                            <Divider />
-                            <CardContent>
-                                <Grid container spacing={3}>
-                                    <Grid sx={{ width: 360, }}>
-                                        <TextField fullWidth required label="Nombre" helperText="Nombre" />  
-                                    </Grid>
-                                    <Grid sx={{ width: 415 }}>
-                                        <TextField fullWidth required label="Contraseña" type="password" helperText="Contraseña" />
-                                    </Grid>
-                                </Grid >
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid container spacing={2} sx={{ mb: 4, width: 600 }}>
-                        <Grid>
-                            <Button sx={{ width: 270 }} variant="contained" color="secondary" >Acceder</Button>
-                        </Grid>
-                        <Grid>
-                            <Button fullWidth variant="outlined" color="primary" >Crear un nuevo usuario</Button>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </main>
-            <footer>
-                <Container sx={{ flexDirection: 'column', alignItems: "center", justifyContent: "center" }}>
-                    <Card sx={{ width: 600 }}>
-                        <CardContent>
+                    <form onSubmit={enviar}>
+                        <Grid container spacing={2} sx={{ width: 700, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                             <Grid>
-                                <Typography color="textPrimary" variant='body1'>No nos hacemos responsables si su cuenta se vuelve innacesible por motivos ajenos a la página como:</Typography>
-                                <Typography color="textSecondary" variant='caption'>olvidarse la contraseña o usuario, por dar la contraseña y usuario a personas desconocidas, etc..</Typography>
-                                <Typography color="textPrimary" variant='body1'>Si pierde su cuenta y desea continuar usando la pagina, cree una nueva</Typography>
-                            </Grid >
-                        </CardContent>
-                    </Card>
-                </Container>
-            </footer>
-        </>
-    )
+                                <TextField sx={{ width: 700 }} label="usuario" name="usuario" value={data.usuario} onChange={Datos} required fullWidth />
+                            </Grid>
+                            <Grid>
+                                <TextField sx={{ width: 700 }} label="contrasena" type="password" name="contrasena" value={data.contrasena} onChange={Datos} required fullWidth />
+                            </Grid>
+                            <Grid>
+                                <Button type="submit" variant="contained" color="primary" sx={{ width: 700 }}>Acceder</Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                    {Alerta && <Alert severity="error" sx={{ mt: 2 }}>Usuario o contraseña incorrecto</Alert>}
+                </Paper>
+            </Box>
+        </Container>
+    );
 }
-
 export default Login
-
