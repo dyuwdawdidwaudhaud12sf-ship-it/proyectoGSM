@@ -17,7 +17,7 @@ function Error() {
             <div>
                 <Typography variant="h3" gutterBottom>{titulo}</Typography>
                 <Typography sx={{ mb: 3 }}>{String(detalle)}</Typography>
-                <Link to="/">Volver a login</Link>
+                <Link to="Home">Volver a home</Link>
             </div>
         </Box>
     )
