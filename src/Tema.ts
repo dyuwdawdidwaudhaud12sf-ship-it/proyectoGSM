@@ -14,7 +14,7 @@ const tema = createTheme({
       secondary: '#000000',
     },
     background: {
-      paper: 'rgba(179,229,252,0.35)',
+      paper: '#E5FCF5',
     },
   },
   typography: {
