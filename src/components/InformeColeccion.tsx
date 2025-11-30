@@ -2,15 +2,6 @@ import MaterialTable, { type Column } from "@material-table/core";
 import { ExportCsv, ExportPdf } from "@material-table/exporters";
 import Divider from "@mui/material/Divider";
 
-interface itemtype {
-    id?: number;
-    nombre: string;
-    marca: string;
-    tipo: string;
-    precio: number;
-}
-
-
 interface DatosRecibidos {
     tableData: itemtype[];
 }
